@@ -1,0 +1,9 @@
+Bash solution
+
+To get challenge string
+
+curl http://docker.hackthebox.eu:31249/ | grep "\<h3 align=" | cut -d ' ' -f 6 | cut -d '>' -f 2 | cut -d '<' -f 1
+
+To submit with curl and cookie support
+
+for i in {1..1000};do curl -X POST -d $(echo hash=$(echo -n $(curl -c /tmp/cookie -x http://172.30.240.1:8080 -s http://docker.hackthebox.eu:31249/ | grep "\<h3 align=" | cut -d ' ' -f 6 | cut -d '>' -f 2 | cut -d '<' -f 1) | md5sum | cut -d ' ' -f 1)) http://docker.hackthebox.eu:31249/ -x http://172.30.240.1:8080 -b /tmp/cookie; done
